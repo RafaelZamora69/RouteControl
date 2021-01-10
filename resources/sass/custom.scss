@@ -1,0 +1,24 @@
+nav.top-nav{
+    height: 110px;
+    box-shadow: none;
+    border-bottom: 1px solid rgba(0,0,0,0.14);
+    background-color: transparent;
+}
+.nav-container{
+    width: 100%;
+}
+.nav-wrapper{
+    position: relative;
+    height: 100%;
+}
+nav.top-nav h1.header{
+    margin: 0;
+    padding-top: 22px;
+}
+.header{
+    color: #3f51b5;
+    font-weight: 300;
+}
+header, main{
+    padding-left: 300px;
+}

@@ -1,0 +1,1 @@
+TODO *Campo tiempo en ruta es => tiempo que se tarda en recorrer la ruta
