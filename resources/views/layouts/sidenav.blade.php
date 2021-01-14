@@ -30,6 +30,9 @@
         <li class="no-padding">
             <a href="{{route('maintenances.calendar')}}">Calendario<i class="material-icons">date_range</i></a>
         </li>
+        <li class="no-padding">
+            <a href="{{route('user.index')}}">Usuarios<i class="material-icons">group</i></a>
+        </li>
         <li><div class="divider"></div></li>
         <li class="no-padding">
             <a href="{{ route('logout') }}">Cerrar sesión<i class="material-icons">exit_to_app</i></a>
