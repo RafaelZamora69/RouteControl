@@ -39,6 +39,11 @@ class RouteController extends Controller
         return redirect()->route('main');
     }
 
+    public function index(){
+        $rutas = DB::table('rutas')->get();
+        return view('routes.index', compact('rutas'));
+    }
+
     //private functions
     private function getVehicleId($label){
         return DB::table('vehicles')->select('id')->where('label','=',$label)->first();

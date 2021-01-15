@@ -12,17 +12,18 @@ class VehicleController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View
      */
     public function index()
     {
-        return "hola je";
+        $vehiculos = DB::table('vehicles')->get();
+        return view('vehicles.index', compact('vehiculos'));
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View
      */
     public function create()
     {
@@ -38,33 +39,75 @@ class VehicleController extends Controller
      */
     public function store(Request $request)
     {
-        //validación wip
         $conditions = [
             'label' => 'required',
             'brand' => 'required',
             'titular' => 'required',
-            'model' => 'required',
-            'driverId' => 'required'
+            'model' => 'required'
         ];
         $messages = [
             'label' => ':attribute field is required',
             'brand' => ':attribute field is required',
             'titular' => ':attribute field is required',
-            'model' => ':attribute field is required',
-            'driverId' => ':attribute field is required'
+            'model' => ':attribute field is required'
         ];
         $this->validate($request,$conditions,$messages);
-        $driverID = $this->getDriverId($request['driverId']);
-        $rutaImagen = $request->file('image')->store('vehicles','public');
-        $img = Image::make($request->file('image')->getRealPath())->fit(500,500);
-        $img->save();
+        $driverID = new \stdClass();
+        $driverID->id = null;
+        if($request['driverId'] != null){
+            $driverID = $this->getDriverId($request['driverId']);
+        }
+        $rutaImagen = '';
+        if($request->file('image') != null){
+            $rutaImagen = $request->file('image')->store('vehicles','public');
+            $img = Image::make($request->file('image')->getRealPath())->fit(500,500);
+            $img->stream();
+        }
         DB::table('vehicles')->insert([
             'label' => $request['label'],
             'brand' => $request['brand'],
             'titular' => $request['titular'],
-            'driverId' => $driverID,
             'date' => $request['date'],
-            'image' => $rutaImagen,
+            'driverId' => $driverID,
+            'model' => $request['model'],
+            'propulsion' => $request['propulsion'],
+            'color' => $request['color'],
+            'engine' => $request['engine'],
+            'engineId' => $request['engineId'],
+            'type' => $request['type'],
+            'cabina' => $request['cabina'],
+            'rines' => $request['rines'],
+            'llantas' => $request['llantas'],
+            'image' => $rutaImagen
+        ]);
+        return redirect()->route('main');
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request) {
+        $conditions = [
+            'label' => 'required',
+            'brand' => 'required',
+            'titular' => 'required',
+            'model' => 'required'
+        ];
+        $messages = [
+            'label' => ':attribute field is required',
+            'brand' => ':attribute field is required',
+            'titular' => ':attribute field is required',
+            'model' => ':attribute field is required'
+        ];
+        $this->validate($request,$conditions,$messages);
+        DB::table('vehicles')->where('id','=',$request->id)->update([
+            'label' => $request['label'],
+            'brand' => $request['brand'],
+            'titular' => $request['titular'],
+            'date' => $request['date'],
             'model' => $request['model'],
             'propulsion' => $request['propulsion'],
             'color' => $request['color'],
@@ -75,7 +118,34 @@ class VehicleController extends Controller
             'rines' => $request['rines'],
             'llantas' => $request['llantas'],
         ]);
-        return redirect()->route('main');
+        if($request['driverId'] != null){
+            $driverId = $this->getDriverId($request['driverId']);
+            DB::table('vehicles')->where('id','=',$request->id)->update([
+                'driverId' => $driverId
+            ]);
+        }
+        if($request->file('image') != null){
+            $rutaImagen = $request->file('image')->store('vehicles','public');
+            $img = Image::make($request->file('image')->getRealPath())->fit(500,500);
+            $img->stream();
+            DB::table('vehicles')->where('id','=',$request->id)->update([
+                'image' => $rutaImagen
+            ]);
+        }
+        return redirect()->route('vehicles.index');
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Vehicle  $vehicle
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View
+     */
+    public function edit($vehicle)
+    {
+        $vehiculo = DB::table('vehicles')->select('*')->where('id','=',$vehicle)->first();
+        $conductores = DB::table('users')->select('name',DB::raw("concat(users.name,',',users.surnames)as name"))->where('jobId',2)->get();
+        return view('vehicles.edit', compact('vehiculo','conductores'));
     }
 
     /**
@@ -86,30 +156,7 @@ class VehicleController extends Controller
      */
     public function show(Vehicle $vehicle)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Vehicle  $vehicle
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Vehicle $vehicle)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Vehicle  $vehicle
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Vehicle $vehicle)
-    {
-        //
+        return json_encode($vehicle);
     }
 
     /**

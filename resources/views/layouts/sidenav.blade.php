@@ -33,6 +33,15 @@
         <li class="no-padding">
             <a href="{{route('user.index')}}">Usuarios<i class="material-icons">group</i></a>
         </li>
+        <li class="no-padding">
+            <a href="{{route('vehicles.index')}}">Vehículos<i class="material-icons">commute</i></a>
+        </li>
+        <li class="no-padding">
+            <a href="{{route('routes.index')}}">Rutas<i class="material-icons">map</i></a>
+        </li>
+        <li class="no-padding">
+            <a href="{{route('maintenances.index')}}">Matenimientos<i class="material-icons">plumbing</i></a>
+        </li>
         <li><div class="divider"></div></li>
         <li class="no-padding">
             <a href="{{ route('logout') }}">Cerrar sesión<i class="material-icons">exit_to_app</i></a>

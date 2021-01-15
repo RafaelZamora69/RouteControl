@@ -36,15 +36,23 @@ Route::put('/users/{user}', 'UserController@update')->name('user.update');
 Route::delete('/users/{user}', 'UserController@delete')->name('user.delete');
 Route::post('/users', 'UserController@store')->name('user.store');
 //Vehicles
-Route::get('/vehicles', 'VehicleController@index')->name('vehicles.index');
+Route::get('/vehicles/index', 'VehicleController@index')->name('vehicles.index');
 Route::get('/vehicles/{vehicle}', 'VehicleController@show')->name('vehicle.show');
+Route::get('/vehicles/{vehicle}/edit', 'VehicleController@edit')->name('vehicle.edit');
+Route::put('/vehicles/{vehicle}', 'VehicleController@update')->name('vehicle.update');
+Route::delete('/vehicles/{vehicle}', 'VehicleController@delete')->name('vehicle.delete');
 Route::get('/vehicles/new', 'VehicleController@create')->name('vehicle.new');
 Route::post('/vehicles','VehicleController@store')->name('vehicle.store');
 //Routes
 Route::get('/routes/new', 'RouteController@create')->name('routes.new');
+Route::get('/routes/index', 'RouteController@index')->name('routes.index');
 Route::post('/routes', 'RouteController@store')->name('routes.store');
+Route::get('/routes/{route}','RouteController@show')->name('routes.show');
+Route::get('/routes/{route}','RouteController@edit')->name('routes.edit');
+Route::put('/routes/{route}','RouteController@update')->name('routes.update');
 //Maintenances
 Route::get('/maintenances/new', 'MaintenanceController@create')->name('maintenances.new');
+Route::get('/maintenances/index', 'MaintenanceController@index')->name('maintenances.index');
 Route::get('/maintenances/calendar', 'MaintenanceController@calendar')->name('maintenances.calendar');
 Route::post('/maintenances', 'MaintenanceController@store')->name('maintenances.store');
 Route::get('/maintenances/getData', 'MaintenanceController@getData');
