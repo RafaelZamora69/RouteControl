@@ -44,6 +44,43 @@ class RouteController extends Controller
         return view('routes.index', compact('rutas'));
     }
 
+    public function show($id){
+        $route = DB::table('routes')->where('id','=',$id)->get();
+        return view('routes.show', compact('route'));
+    }
+
+    public function edit($id){
+        $route = DB::table('routes')->where('id','=',$id)->get();
+        $labels = DB::table('vehicles')->select('label')->get();
+        return view('routes.edit',compact('route','labels'));
+    }
+
+    public function update(Request $request){
+        $conditions = [
+            'colony' => 'required',
+            'time' => 'required',
+            'streets' => 'required'
+        ];
+        $messages = [
+            'colony' => ':attribute field is required',
+            'time' => ':attribute field is required',
+            'streets' => ':attribute field is required'
+        ];
+        $this->validate($request, $conditions, $messages);
+        if($request['vehicleId'] != null){
+            $idVehicle = $this->getVehicleId($request['vehicleId']);
+            DB::table('routes')->where('id','=',$request->id)->update([
+                'vehicleId' => $idVehicle->id
+            ]);
+        }
+        DB::table('routes')->where('id','=',$request->id)->update([
+            'colony' => $request['colony'],
+            'time' => $request['time'],
+            'streets' => (string)$request['streets']
+        ]);
+        return redirect()->route('routes.index');
+    }
+
     //private functions
     private function getVehicleId($label){
         return DB::table('vehicles')->select('id')->where('label','=',$label)->first();

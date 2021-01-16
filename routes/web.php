@@ -48,11 +48,14 @@ Route::get('/routes/new', 'RouteController@create')->name('routes.new');
 Route::get('/routes/index', 'RouteController@index')->name('routes.index');
 Route::post('/routes', 'RouteController@store')->name('routes.store');
 Route::get('/routes/{route}','RouteController@show')->name('routes.show');
-Route::get('/routes/{route}','RouteController@edit')->name('routes.edit');
+Route::get('/routes/{route}/edit','RouteController@edit')->name('routes.edit');
 Route::put('/routes/{route}','RouteController@update')->name('routes.update');
 //Maintenances
 Route::get('/maintenances/new', 'MaintenanceController@create')->name('maintenances.new');
 Route::get('/maintenances/index', 'MaintenanceController@index')->name('maintenances.index');
+Route::get('/maintenances/{maintenance}','MaintenanceController@show')->name('maintenance.show');
+Route::get('/maintenances/{maintenance}/edit','MaintenanceController@edit')->name('maintenance.edit');
+Route::put('/maintenances/{maintenance}','MaintenanceController@update')->name('maintenance.update');
 Route::get('/maintenances/calendar', 'MaintenanceController@calendar')->name('maintenances.calendar');
 Route::post('/maintenances', 'MaintenanceController@store')->name('maintenances.store');
 Route::get('/maintenances/getData', 'MaintenanceController@getData');

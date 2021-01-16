@@ -43,6 +43,16 @@ class MaintenanceController extends Controller {
         return view('maintenances.calendar');
     }
 
+    public function index(){
+        $maintenances = DB::table('mantenimientos')->get();
+        return view('maintenances.index', compact('maintenances'));
+    }
+
+    public function show($id){
+        $maintenance = DB::table('maintenances')->where('id','=',$id)->get();
+        return view('maintenances.show', compact('maintenance'));
+    }
+
     public function getData(){
         return json_encode($maintenances = DB::table('maintenances')->get());
     }
