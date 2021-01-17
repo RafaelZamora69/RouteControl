@@ -152,7 +152,7 @@ class UserController extends Controller
         if($request['vehicleLabel'] != null){
             $idVehicle = $this->getVehicleId($request['vehicleLabel']);
             DB::table('users')->where('id','=',$request->id)->update([
-                'vehicleId' => $idVehicle
+                'vehicleId' => $idVehicle->id
             ]);
         }
         if($request->file('profilePick') != null){
@@ -166,9 +166,12 @@ class UserController extends Controller
         return redirect()->route('user.index');
     }
 
-    public function delete(User $user){
-        //DB::table('users')->delete($user);
-        return json_encode(array('Msg' => 'Eliminado'));
+    public function delete($id){
+        DB::table('users')->where('id','=',$id)->delete();
+        if(Auth::id() == $id){
+            return redirect()->route('login');
+        }
+        return redirect()->route('user.index');
     }
 
     //private functions

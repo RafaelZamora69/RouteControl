@@ -39,7 +39,7 @@
                             @enderror
                         </div>
                         <div class="input-field col s4">
-                            <input type="text" id="date" name="date" class="datepicker" value="{{$vehiculo->date}}">
+                            <input type="text" id="year" name="year" class="datepicker" value="{{$vehiculo->year}}">
                             <label for="date">Fecha</label>
                         </div>
                     </div>

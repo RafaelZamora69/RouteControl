@@ -33,14 +33,35 @@ class MaintenanceController extends Controller {
             'vehicleId' => $vehicleId->id,
             'report' => $request['report'],
             'createdAt' => $request['createdAt'],
-            'amount' => $request['amount']
-            //'partnerId' => $request['partnerId']
+            'amount' => $request['amount'],
+            'url' => 'http://127.0.0.1:8000/maintenances/' . (DB::table('maintenances')->max('id') + 1)
         ]);
-        return redirect()->route('maintenances.new');
+        return redirect()->route('maintenances.calendar');
     }
 
-    public function calendar(){
-        return view('maintenances.calendar');
+    public function update(Request $request){
+        $conditions = [
+            'createdAt' => 'required',
+            'report' => 'required'
+        ];
+        $messages = [
+            'createdAt' => ':attribute field is required',
+            'report' => ':attribute field is required'
+        ];
+        $this->validate($request,$conditions,$messages);
+        if($request->vehicleId != null){
+            $vehicleId = $this->getVehicleId($request['vehicleId']);
+            DB::table('maintenances')->where('id',$request->id)->update([
+                'vehicleId' => $vehicleId
+            ]);
+        }
+        DB::table('maintenances')->where('id',$request->id)->update([
+            'report' => $request['report'],
+            'createdAt' => $request['createdAt'],
+            'finishedAt' => $request['finishedAt'],
+            'amount' => $request['amount']
+        ]);
+        return redirect()->route('maintenances.index');
     }
 
     public function index(){
@@ -53,8 +74,27 @@ class MaintenanceController extends Controller {
         return view('maintenances.show', compact('maintenance'));
     }
 
-    public function getData(){
+    public function calendar(){
+        return view('maintenances.calendar');
+    }
+
+    public function delete($id){
+        DB::table('maintenances')->where('id','=',$id)->delete();
+        return redirect()->route('maintenances.index');
+    }
+
+    public function edit($id){
+        $maintenance = DB::table('maintenances')->where('id','=',$id)->get();
+        $labels = DB::table('vehicles')->select('label')->get();
+        return view('maintenances.edit', compact('maintenance','labels'));
+    }
+
+    public function getMaintenances(){
         return json_encode($maintenances = DB::table('maintenances')->get());
+    }
+
+    public function getRoutes(){
+        return json_encode($maintenances = DB::table('routes')->get());
     }
 
     //private functions

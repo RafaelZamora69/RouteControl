@@ -50,7 +50,7 @@ class CreateUsersTable extends Migration
             $table->string('label');
             $table->string('brand');
             $table->string('model');
-            $table->date('date')->nullable();
+            $table->string('year')->nullable();
             $table->string('image')->nullable();
             $table->string('titular');
             $table->string('engine')->nullable();
@@ -77,6 +77,7 @@ class CreateUsersTable extends Migration
             $table->timestamp('createdAt');
             $table->timestamp('finishedAt')->nullable();
             $table->double('amount');
+            $table->text('url');
             $table->foreign('vehicleId')->references('id')->on('vehicles');
         });
 
@@ -88,6 +89,8 @@ class CreateUsersTable extends Migration
            $table->text('colony');
            $table->string('time');
            $table->foreign('vehicleId')->references('id')->on('vehicles');
+           $table->text('url');
+           $table->timestamps();
         });
 
         //Create partners table

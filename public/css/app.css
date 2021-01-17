@@ -31,6 +31,27 @@ main {
   padding-left: 300px;
 }
 
+.loginWallpaper {
+  height: 100vh;
+  background-image: url("http://127.0.0.1:8000/storage/images/backgroundLogin.jpg");
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.loginWallpaper .containerLogin {
+  margin-left: 5%;
+  margin-right: 65%;
+  width: 30%;
+}
+
+.background-calendar {
+  height: 100%;
+  width: 100%;
+  background-color: white;
+}
+
 .materialize-red {
   background-color: #e51c23 !important;
 }

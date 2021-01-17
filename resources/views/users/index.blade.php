@@ -23,16 +23,16 @@
                                 <td>{{$User->rfc}}</td>
                                 <td>{{$User->phoneNumber}}</td>
                                 @if(strcmp($User->vehicle,'sin asignar') != 0)
-                                    <td><a href="{{route('vehicle.show',['vehicle' => $User->vehicleId])}}">{{$User->vehicle}}</a></td>
+                                    <td><a href="#!" id="mostrarV-{{$User->vehicleId}}" class="mostrarV">{{$User->vehicle}}</a></td>
                                 @else
                                     <td>{{$User->vehicle}}</td>
                                 @endif
                                 <td><a data-target="modalUsuario" id="mostrar-{{$User->id}}" class="btn green white-text modal-trigger mostrar">Mostrar</a></td>
                                 <td><a href="{{route('user.edit', ['user' => $User->id])}}" class="btn yellow black-text modal-trigger editar">Editar</a></td>
-                                <form action="{{route('user.delete',['user' => $User->id])}}">
-                                    @method('delete')
+                                <td><a onclick="event.preventDefault();document.getElementById('delete-{{$User->id}}').submit();" class="btn red white-text">Borrar</a></td>
+                                <form action="{{route('user.delete',['user' => $User->id])}}" id="delete-{{$User->id}}" method="post">
                                     @csrf
-                                    <td><input type="submit" value="Eliminar" class="btn red white-text"></td>
+                                    @method('delete')
                                 </form>
                             </tr>
                         @endforeach

@@ -20,10 +20,12 @@ class RouteController extends Controller
             'vehicleId' => 'required',
             'colony' => 'required',
             'time' => 'required',
-            'streets' => 'required'
+            'streets' => 'required',
+            'created_at' => 'required'
         ];
         $messages = [
             'vehicleId' => ':attribute field is required',
+            'created_at' => ':attribute field is required',
             'colony' => ':attribute field is required',
             'time' => ':attribute field is required',
             'streets' => ':attribute field is required'
@@ -34,9 +36,11 @@ class RouteController extends Controller
             'vehicleId' => $idVehicle->id,
             'colony' => $request['colony'],
             'time' => $request['time'],
-            'streets' => (string)$request['streets']
+            'streets' => (string)$request['streets'],
+            'created_at' => $request['created_at'],
+            'url' => 'http://127.0.0.1:8000/routes/' . (DB::table('routes')->max('id') + 1)
         ]);
-        return redirect()->route('main');
+        return redirect()->route('maintenances.calendar');
     }
 
     public function index(){
@@ -78,6 +82,11 @@ class RouteController extends Controller
             'time' => $request['time'],
             'streets' => (string)$request['streets']
         ]);
+        return redirect()->route('routes.index');
+    }
+
+    public function delete($id){
+        DB::table('routes')->where('id','=',$id)->delete();
         return redirect()->route('routes.index');
     }
 

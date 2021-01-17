@@ -26,6 +26,7 @@
 <header>
     @yield('sidenav')
 </header>
+@yield('login')
 <main>
     @yield('content')
 </main>

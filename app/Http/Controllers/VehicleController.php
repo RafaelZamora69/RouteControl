@@ -67,8 +67,8 @@ class VehicleController extends Controller
             'label' => $request['label'],
             'brand' => $request['brand'],
             'titular' => $request['titular'],
-            'date' => $request['date'],
-            'driverId' => $driverID,
+            'year' => $request['year'],
+            'driverId' => $driverID->id,
             'model' => $request['model'],
             'propulsion' => $request['propulsion'],
             'color' => $request['color'],
@@ -80,7 +80,7 @@ class VehicleController extends Controller
             'llantas' => $request['llantas'],
             'image' => $rutaImagen
         ]);
-        return redirect()->route('main');
+        return redirect()->route('vehicles.index');
     }
 
     /**
@@ -107,7 +107,7 @@ class VehicleController extends Controller
             'label' => $request['label'],
             'brand' => $request['brand'],
             'titular' => $request['titular'],
-            'date' => $request['date'],
+            'year' => $request['year'],
             'model' => $request['model'],
             'propulsion' => $request['propulsion'],
             'color' => $request['color'],
@@ -165,9 +165,9 @@ class VehicleController extends Controller
      * @param  \App\Vehicle  $vehicle
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Vehicle $vehicle)
-    {
-        //
+    public function delete($id) {
+        DB::table('vehicles')->where('id','=',$id)->delete();
+        return redirect()->route('vehicles.index');
     }
 
     private function getDriverId($fullName){

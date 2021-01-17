@@ -31,15 +31,15 @@
                             @enderror
                         </div>
                         <div class="input-field col s4">
-                            <input type="text" id="driverId" name="driverId" @error('driverId') class="invalid" @enderror value="{{old('driverId')}}">
-                            <label for="driverId">Conductor<span class="red-text"> *</span></label>
+                            <input type="text" id="driverId" name="driverId">
+                            <label for="driverId">Conductor</span></label>
                             @error('driverId')
                                 <span class="helper-text" data-error="{{$message}}"></span>
                             @enderror
                         </div>
                         <div class="input-field col s4">
-                            <input type="text" id="date" name="date" class="datepicker">
-                            <label for="date">Fecha</label>
+                            <input type="text" id="year" name="year">
+                            <label for="date">Año</label>
                         </div>
                     </div>
                     <div class="row">

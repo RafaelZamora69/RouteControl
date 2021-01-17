@@ -2,14 +2,14 @@ document.addEventListener('DOMContentLoaded',() => {
     const modal = M.Modal.init(document.getElementById('modalVehiculo'));
     document.addEventListener('click', (e) => {
         if(e.target.classList.contains('mostrar')){
-            mostrarUsuario(e.target.id.replace('mostrar-',''));
+            mostrarVehiculo(e.target.id.replace('mostrar-',''));
         }
         if(e.target.classList.contains('eliminar')){
             eliminarUsuario(e.target.id.replace('eliminar-',''));
         }
     });
 
-    function mostrarUsuario(id){
+    function mostrarVehiculo(id){
         fetch(`/vehicles/${id}`)
             .then(res => res.json())
             .then(res => {
