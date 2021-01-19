@@ -1,11 +1,12 @@
 @extends('layouts.sidenav')
 @section('content')
-    <div class="container">
-        <h3>Usuarios</h3>
-        <div class="row">
-            <div class="col s12">
-                <table class="striped centered responsive-table">
-                    <thead>
+    <div class="backgroundMain">
+        <div class="container">
+            <h3>Usuarios</h3>
+            <div class="row">
+                <div class="col s12">
+                    <table class="striped centered responsive-table">
+                        <thead>
                         <tr>
                             <th>Nombre</th>
                             <th>curp</th>
@@ -14,8 +15,8 @@
                             <th>Unidad</th>
                             <th>Acciones</th>
                         </tr>
-                    </thead>
-                    <tbody>
+                        </thead>
+                        <tbody>
                         @foreach($Usuarios as $User)
                             <tr>
                                 <td>{{$User->name}} {{$User->surnames}}</td>
@@ -36,8 +37,9 @@
                                 </form>
                             </tr>
                         @endforeach
-                    </tbody>
-                </table>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>

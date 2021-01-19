@@ -22,6 +22,9 @@ nav.top-nav h1.header{
 header, main{
     padding-left: 300px;
 }
+h3{
+    margin-top: 0px !important;
+}
 .loginWallpaper{
     height: 100vh;
     background-image: url("http://127.0.0.1:8000/storage/images/backgroundLogin.jpg");
@@ -39,4 +42,9 @@ header, main{
     height: 100%;
     width: 100%;
     background-color: white;
+}
+.backgroundMain{
+    height: 100vh;
+    background-image: url("http://127.0.0.1:8000/storage/images/backgroundMain.jpg");
+    background-size: cover;
 }
